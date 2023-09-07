@@ -1,3 +1,3 @@
-module github.com/chaewonkong/commit-lint
+module github.com/chaewonkong/gocmt
 
 go 1.21.0
