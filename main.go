@@ -8,6 +8,22 @@ import (
 )
 
 func main() {
+	var cmd string
+	if len(os.Args) < 2 {
+		log.Fatal("Provide command: 'init'")
+	}
+
+	cmd = os.Args[1]
+	switch cmd {
+	case "init":
+		initCmd()
+	default:
+		log.Fatal("Commands available: 'init'")
+	}
+
+}
+
+func initCmd() {
 	// Execute the git command to get the .git directory path
 	gitDirCmd := exec.Command("git", "rev-parse", "--git-dir")
 	gitDirBytes, err := gitDirCmd.Output()
@@ -24,7 +40,7 @@ COMMIT_MSG_FILE=$1
 COMMIT_MSG=$(cat $COMMIT_MSG_FILE)
 
 # Example: Check if commit message starts with 'feat:', 'fix:', etc.
-if ! echo "$COMMIT_MSG" | grep -qE "^(feat|fix|chore|docs|style|refactor|perf|test): "; then
+if ! echo "$COMMIT_MSG" | grep -qE "^(feat|fix|chore|docs|style|refactor|perf|test|ci|build): "; then
     echo "ERROR: Commit message does not match expected format."
     exit 1
 fi
